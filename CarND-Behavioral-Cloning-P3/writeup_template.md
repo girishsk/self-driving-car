@@ -120,3 +120,5 @@ Adam optimizer was used with gradient clipping enabled (to keep the gradients be
 ### 4. Result
 
 Link below shows the result of this trained model.
+
+[![Self Driving Car](https://img.youtube.com/vi/GLSbGck3k3Q/0.jpg)](https://youtu.be/GLSbGck3k3Q "Self Driving Car")
