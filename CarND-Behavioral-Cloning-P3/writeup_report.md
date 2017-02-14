@@ -31,6 +31,14 @@ Using the Udacity provided simulator and udacity provided sample data, and my dr
 python drive.py model.h5
 ```
 
+[//]: # (Image References)
+
+[image1]: ./road.png "Road"
+[image2]: ./road_clipped.png "Clipped Road"
+[image3]: ./first.png "Steering angle Distribution"
+[image4]: ./distribution_after.png "After augmentation"
+
+
 #### 3. Submssion code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
@@ -54,10 +62,10 @@ Table below describes the layers.
 | Maxpooling2D | pool_size = 2,2 |     |
 | Flatten |      |    |
 | Dense | 128 |    |
-| Dropout | probability = 0.5| |
+| Dropout | probability = 0.6| |
 | Activation | relu |    |
 | Dense | 84 |    |
-|Dropout | probability = 0.5| |
+|Dropout | probability = 0.6| |
 | Activation | relu | |
 | Dense | 1 |  steering angle  |
 
@@ -102,14 +110,21 @@ To capture good driving behavior, I used the udacity provided data set, used the
 Also, to have more data from the further angles , over sampled these data to make the distribution look like the image below.
 
 First image is the data set with only steering angle distribution with center images only.
+![alt text][image3]
+
 Second image describes the data that was augmented with left , right and over sampling. Also, the data with steering angles of 0 was under sampled.
+![alt text][image4]
 
 
 
+
+
+
+After the collection process, I had 29786 number of data points. I then preprocessed this data by by cropping the image.
 ![alt text][image1]
-![alt text][image2]
 
-After the collection process, I had X number of data points. I then preprocessed this data by by cropping the image.
+Cropped image
+![alt text][image2]
 
 
 I finally randomly shuffled the data set and put Y% of the data into a validation set.
