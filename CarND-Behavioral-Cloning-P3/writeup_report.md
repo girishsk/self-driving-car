@@ -110,9 +110,13 @@ To capture good driving behavior, I used the udacity provided data set, used the
 Also, to have more data from the further angles , over sampled these data to make the distribution look like the image below.
 
 First image is the data set with only steering angle distribution with center images only.
+
+
 ![alt text][image3]
 
 Second image describes the data that was augmented with left , right and over sampling. Also, the data with steering angles of 0 was under sampled.
+
+
 ![alt text][image4]
 
 
@@ -121,9 +125,13 @@ Second image describes the data that was augmented with left , right and over sa
 
 
 After the collection process, I had 29786 number of data points. I then preprocessed this data by by cropping the image.
+
+
 ![alt text][image1]
 
 Cropped image
+
+
 ![alt text][image2]
 
 
