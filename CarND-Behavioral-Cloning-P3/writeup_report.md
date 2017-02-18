@@ -164,7 +164,5 @@ NV_GPU=0 nvidia-docker run -ti -v /home/girish/self-driving-car/:/src/car -p 889
 `
 ---
 ### 5. Reference
-`
-[@bianquiver2016]: https://github.com/keplr-io/quiver "Quiver,Bian, Jake, Github. Available at: https://github.com/keplr-io/quiver"
-`
 
+[![Quiver by Brain,Jake]](https://github.com/keplr-io/quiver "Quiver")
