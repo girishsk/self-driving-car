@@ -150,18 +150,18 @@ Link below shows the result of this trained model.
 Also, we can see the layers and its activation using quiver tool by 
 
 Running the following command will start the flask application of 5000 port.
-console`
+```console
 python quiver.py
-`
+```
 
 [![Layer Activation](https://img.youtube.com/vi/0UqywKfbFeM/0.jpg)](https://youtu.be/0UqywKfbFeM "Layer Activation")
 
 #### 4.1 Docker image
 I have the docker image with all the necessary installation at girishsk/keras-gpu-v1. Following are the command to get the docker running which exposes ports for jupyter as well as quiver.
 
-console`
+```console
 NV_GPU=0 nvidia-docker run -ti -v /home/girish/self-driving-car/:/src/car -p 8890:8888 -p 5000:5000 girishsk/keras-gpu-v1
-`
+```
 ---
 ### 5. Reference
 
