@@ -162,3 +162,9 @@ I have the docker image with all the necessary installation at girishsk/keras-gp
 `
 NV_GPU=0 nvidia-docker run -ti -v /home/girish/self-driving-car/:/src/car -p 8890:8888 -p 5000:5000 girishsk/keras-gpu-v1
 `
+---
+### 5. Reference
+
+[@bianquiver2016]: https://github.com/keplr-io/quiver "Quiver,Bian, Jake, Github. Available at: https://github.com/keplr-io/quiver"
+
+
