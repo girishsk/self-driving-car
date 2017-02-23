@@ -24,6 +24,7 @@ My project includes the following files:
 * model.h5_first_track a model that fits the first track (version 1)
 * model.h5_first_track_and_second_partial a model that fits the first track and fits the second one , but the last turn. Trained only using the first track data.
 * writeup_report.md or writeup_report.pdf summarizing the results
+* quiver.py python script to run quiver server to visualize the network.
 
 #### 2. Submssion includes functional code
 Using the Udacity provided simulator and udacity provided sample data, and my drive.py file, the car can be driven autonomously around the track by executing
@@ -145,3 +146,24 @@ Adam optimizer was used with gradient clipping enabled (to keep the gradients be
 Link below shows the result of this trained model.
 
 [![Self Driving Car](https://img.youtube.com/vi/GLSbGck3k3Q/0.jpg)](https://youtu.be/GLSbGck3k3Q "Self Driving Car")
+
+
+Also, we can see the layers and its activation using quiver tool by Jake Brain. We can see what is happening inside the CNN layers.
+
+Running the following command will start the flask application of 5000 port.
+```console
+python quiver.py
+```
+
+[![Layer Activation](https://img.youtube.com/vi/0UqywKfbFeM/0.jpg)](https://youtu.be/0UqywKfbFeM "Layer Activation")
+
+#### 4.1 Docker image
+I have the docker image with all the necessary installation at girishsk/keras-gpu-v1. Following are the command to get the docker running which exposes ports for jupyter as well as quiver.
+
+```console
+NV_GPU=0 nvidia-docker run -ti -v /home/girish/self-driving-car/:/src/car -p 8890:8888 -p 5000:5000 girishsk/keras-gpu-v1
+```
+---
+### 5. Reference
+
+[Quiver by Brain,Jake](https://github.com/keplr-io/quiver "Quiver")
