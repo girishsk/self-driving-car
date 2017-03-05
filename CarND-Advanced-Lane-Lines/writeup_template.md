@@ -18,32 +18,28 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
+[image1]: ./undistorted.png "Undistorted"
+[image2]: ./test_images/test2.jpg "Road Transformed"
+[image3]: ./binary_color_and_gradient.png "Binary Example"
+[image4]: ./car_undist_warp_pres.png "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image6]: ./final_output.png "Output"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
-
-You're reading it!
-###Camera Calibration
+### Camera Calibration
 
 ####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
+The code for this step is contained in the first code cell of the IPython notebook located in "AdvancedLaneDetection.ipynb".  
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result:
 
 ![alt text][image1]
 
@@ -53,13 +49,13 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image2]
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds  to generate a binary image .  Here's an example of my output for this step.
 
 ![alt text][image3]
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function inside the `Pipeline` class called `_warp()`, which appears in lines 98 through 100 in the file `pipeline.py` in `misc` module .  The `_warp()` function takes as inputs an image (`image`).  I chose the hardcode the source and destination points in the following manner:
 
 ```
 src = np.float32(
@@ -76,9 +72,9 @@ dst = np.float32(
 ```
 This resulted in the following source and destination points:
 
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
+| Source        | Destination   |
+|:-------------:|:-------------:|
+| 585, 460      | 320, 0        |
 | 203, 720      | 320, 720      |
 | 1127, 720     | 960, 720      |
 | 695, 460      | 960, 0        |
@@ -89,17 +85,20 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+On the changed perspective image color and gradient thresholding was done. Histogram was used on these images to detect the right and left peaks.
+Using the data points detected from these area near the peak (peak and margin ) . I fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![alt text][image5]
 
+Note: Image from the lesson.
+
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Radius of the curvature of the lanes are calculated in the funtion `_curvature()` in class `Pipeline`.
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step in lines 239 to 244 in my code in `pipeline.py` in the function `process_image()`.  Here is an example of my result on a test image:
 
 ![alt text][image6]
 
@@ -109,7 +108,9 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a
+
+[![Advanced Lane Detection](https://img.youtube.com/vi/KCcxWfbaM74/0.jpg)](https://www.youtube.com/watch?v=KCcxWfbaM74 "Advanced Lane Detection")
 
 ---
 
@@ -117,5 +118,10 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Currently, I am using [exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing) between the polynomial fits for the lanes from each frames , with alpha = 0.1. As per-frame lane detection is not robust. This in someway is using historical data from previous frames to make a better judgement of the lanes. Kalman filters can be used for the same as well.
 
+These computer vision related algorithms are so much tuned with lot of image processing. A Deep learning based approach would be interesting that would find these filters.
+
+More experiments could be done with tuning the parameters and thresholds more.
+
+Note : Lot of starter code was used from the course.
